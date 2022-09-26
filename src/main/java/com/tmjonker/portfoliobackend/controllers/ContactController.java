@@ -1,6 +1,7 @@
 package com.tmjonker.portfoliobackend.controllers;
 
 import com.tmjonker.portfoliobackend.entities.EmailDetails;
+import com.tmjonker.portfoliobackend.services.ContactService;
 import com.tmjonker.portfoliobackend.services.ContactServiceImpl;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ContactController {
 
-    private ContactServiceImpl contactServiceImpl;
+    private ContactService contactServiceImpl;
 
-    public ContactController(ContactServiceImpl contactServiceImpl) {
+    public ContactController(ContactService contactServiceImpl) {
 
         this.contactServiceImpl = contactServiceImpl;
     }
