@@ -4,5 +4,5 @@ import com.tmjonker.portfoliobackend.entities.EmailDetails;
 
 public interface ContactService {
 
-    public String sendMail(EmailDetails emailDetails);
+    public void sendMail(EmailDetails emailDetails);
 }
