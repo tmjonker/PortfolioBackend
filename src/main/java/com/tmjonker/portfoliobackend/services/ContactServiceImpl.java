@@ -34,8 +34,8 @@ public class ContactServiceImpl implements ContactService {
             simpleMailMessage.setFrom(emailDetails.getSender());
             simpleMailMessage.setTo(RECIPIENT_ADDRESS);
             simpleMailMessage.setSubject(emailDetails.getSubject());
-            simpleMailMessage.setText(emailDetails.getMsg());
-            
+            simpleMailMessage.setText("FROM: " + emailDetails.getSender() + "\n" + "Message: " + emailDetails.getMsg());
+
             javaMailSender.send(simpleMailMessage);
             emailDetails.setDate(new Date());
             emailDetailsDAO.save(emailDetails);

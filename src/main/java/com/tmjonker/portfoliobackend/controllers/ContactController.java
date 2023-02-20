@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
+@CrossOrigin(origins = "*")
 @RestController
 public class ContactController {
 
@@ -21,7 +21,8 @@ public class ContactController {
     @PostMapping("/contact")
     @CrossOrigin("http://localhost:4200")
     public String postContact(@RequestBody EmailDetails emailDetails) {
+        contactServiceImpl.sendMail(emailDetails);
 
-        return contactServiceImpl.sendMail(emailDetails);
+        return "200 OK";
     }
 }
