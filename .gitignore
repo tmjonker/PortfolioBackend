@@ -38,3 +38,8 @@ build/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+mvnw.cmd
+mvnw
+.elasticbeanstalk
+.mvn
