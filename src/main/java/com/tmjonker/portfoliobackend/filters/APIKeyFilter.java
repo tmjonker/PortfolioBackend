@@ -23,7 +23,8 @@ public class APIKeyFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
-            if (((HttpServletRequest) servletRequest).getRequestURI().contains("angular-portfolio14-dev.us-east-1.elasticbeanstalk.com")) {
+            String originHeader = ((HttpServletRequest) servletRequest).getHeader("Origin");
+            if (originHeader != null && originHeader.contains("angular-portfolio14-dev.us-east-1.elasticbeanstalk.com")) {
                 String apiKey = getApiKey((HttpServletRequest) servletRequest);
                 if (apiKey != null) {
                     if (apiKey.equals(this.apiKey)) {
