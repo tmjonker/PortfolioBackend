@@ -23,21 +23,28 @@ public class APIKeyFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
-            String apiKey = getApiKey((HttpServletRequest) servletRequest);
-            if (apiKey != null) {
-                if (apiKey.equals(this.apiKey)) {
-                    APIKeyAuthToken apiToken = new APIKeyAuthToken(apiKey, AuthorityUtils.NO_AUTHORITIES);
-                    SecurityContextHolder.getContext().setAuthentication(apiToken);
+            if (((HttpServletRequest) servletRequest).getRequestURI().contains("angular-portfolio14-dev.us-east-1.elasticbeanstalk.com")) {
+                String apiKey = getApiKey((HttpServletRequest) servletRequest);
+                if (apiKey != null) {
+                    if (apiKey.equals(this.apiKey)) {
+                        APIKeyAuthToken apiToken = new APIKeyAuthToken(apiKey, AuthorityUtils.NO_AUTHORITIES);
+                        SecurityContextHolder.getContext().setAuthentication(apiToken);
+                    } else {
+                        HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
+                        httpResponse.setStatus(401);
+                        httpResponse.getWriter().write("Invalid API Key");
+                        return;
+                    }
                 } else {
                     HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
                     httpResponse.setStatus(401);
-                    httpResponse.getWriter().write("Invalid API Key");
+                    httpResponse.getWriter().write("No API Key Found");
                     return;
                 }
             } else {
                 HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
                 httpResponse.setStatus(401);
-                httpResponse.getWriter().write("No API Key Found");
+                httpResponse.getWriter().write("Wrong request URI");
                 return;
             }
         }
